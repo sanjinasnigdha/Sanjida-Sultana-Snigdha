@@ -1,0 +1,1349 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+/* General Variables (from previous code) */
+:root {
+    --primary-text-color: #333;
+    --secondary-text-color: #555;
+    --accent-color: #ff6b6b; /* A shade of red for "Our Services" */
+    --hero-bg-color: #ff523d; /* A vibrant orange/red from the image */
+    --card-background: #fff;
+    --border-radius: 15px;
+    --shadow-light: rgba(0, 0, 0, 0.05);
+}
+
+/* Base Body and Container (from previous code) */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f7f7f7;
+    color: var(--primary-text-color);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* NEW Hero Section Styles */
+.hero-section {
+    background-color: var(--hero-bg-color); /* Vibrant orange/red background */
+    padding: 80px 0; /* Adjust padding as needed */
+    color: #fff; /* White text for contrast */
+    position: relative;
+    overflow: hidden; /* Important for any absolute positioning/waves */
+    min-height: 550px; /* Ensure enough height for content */
+    display: flex; /* Use flex to vertically center content if needed */
+    align-items: center; /* Align items vertically center */
+}
+
+.hero-content {
+    display: flex;
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    justify-content: space-between;
+    align-items: center; /* Align items vertically in their flex container */
+    padding-top: 50px; /* Give some space from the very top */
+    padding-bottom: 50px; /* Give some space from the bottom */
+}
+
+.hero-text {
+    flex: 1; /* Allow text to take up available space */
+    min-width: 300px; /* Prevent text from becoming too narrow */
+    text-align: left; /* Align text to the left */
+    padding-right: 30px; /* Space between text and images */
+    z-index: 2; /* Ensure text is above any background waves/elements */
+}
+
+.hero-text h1 {
+    font-size: 3.5em; /* Large heading */
+    line-height: 1.2;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.hero-text h1 span {
+    color: #fce8e8; /* Lighter shade of red/orange for "Development" */
+}
+
+.hero-text p {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+    opacity: 0.9;
+}
+
+.hero-btn {
+    /* Reusing .btn-primary but overriding colors */
+    background-color: #fff; /* White background for the button */
+    color: var(--hero-bg-color); /* Orange text color */
+    border: none; /* No border initially */
+    padding: 12px 30px;
+    font-size: 1.1em;
+    font-weight: 600;
+    border-radius: 5px; /* Slightly less rounded than other buttons */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Darker shadow */
+}
+
+.hero-btn:hover {
+    background-color: #f0f0f0; /* Slightly darker white on hover */
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.hero-images-slider {
+    flex: 1; /* Allow images section to take up available space */
+    min-width: 300px;
+    position: relative; /* For positioning arrows */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 30px; /* Space between text and images */
+    perspective: 1000px; /* For 3D rotation if needed */
+    z-index: 2; /* Ensure images are above background */
+    height: 450px; /* Fixed height for the slider area */
+}
+
+.hero-image-wrapper {
+    position: relative;
+    width: 100%; /* Take full width of its flex container */
+    height: 100%; /* Take full height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-image-wrapper img {
+    position: absolute; /* Position all images on top of each other */
+    max-width: 350px; /* Max width for the main phone image */
+    height: auto;
+    object-fit: contain;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+    opacity: 0; /* Hidden by default */
+    transform: translateX(100%) scale(0.8); /* Initially off-screen and scaled down */
+}
+
+.hero-image-wrapper img.active-hero-img {
+    opacity: 1;
+    transform: translateX(0) scale(1); /* Active image is centered and full scale */
+    z-index: 3; /* Ensure active image is on top */
+}
+
+/* To simulate the stacked effect for background phones */
+.hero-image-wrapper img:nth-child(2) { /* Second image */
+    transform: translateX(calc(100% + 50px)) scale(0.9) rotateY(-10deg); /* Positioned to the right, slightly rotated */
+    opacity: 0.7;
+    z-index: 2;
+}
+
+.hero-image-wrapper img:nth-child(3) { /* Third image */
+    transform: translateX(calc(100% + 100px)) scale(0.7) rotateY(-20deg); /* Further right, more rotated */
+    opacity: 0.4;
+    z-index: 1;
+}
+
+/* Navigation arrows */
+.hero-slider-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.2); /* Semi-transparent white */
+    border: none;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.5em;
+    color: #fff;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    z-index: 10; /* Ensure arrows are on top */
+}
+
+.hero-slider-arrow:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.hero-arrow-left {
+    left: 0;
+}
+
+.hero-arrow-right {
+    right: 0;
+}
+
+/* Add any wave/shape background if it's an image or SVG */
+/* Example if the bottom wave is an image: */
+/* .hero-section::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100px; // Adjust height of your wave image
+    background-image: url('images/hero-wave.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: bottom;
+    z-index: 1;
+} */
+
+
+/* Responsive adjustments for Hero Section */
+@media (max-width: 992px) {
+    .hero-content {
+        flex-direction: column; /* Stack text and images vertically */
+        text-align: center;
+        padding-top: 30px;
+        padding-bottom: 30px;
+    }
+
+    .hero-text {
+        padding-right: 0;
+        margin-bottom: 40px;
+    }
+
+    .hero-text h1 {
+        font-size: 2.8em;
+    }
+
+    .hero-text p {
+        font-size: 1em;
+    }
+
+    .hero-images-slider {
+        padding-left: 0;
+        height: 400px; /* Adjust height */
+    }
+
+    .hero-image-wrapper img {
+        max-width: 300px; /* Smaller max width for phones */
+    }
+
+    .hero-image-wrapper img:nth-child(2) {
+        transform: translateX(calc(100% + 30px)) scale(0.8) rotateY(-10deg);
+    }
+
+    .hero-image-wrapper img:nth-child(3) {
+        transform: translateX(calc(100% + 60px)) scale(0.6) rotateY(-20deg);
+    }
+
+    .hero-slider-arrow {
+        width: 35px;
+        height: 35px;
+        font-size: 1.2em;
+    }
+
+    .hero-arrow-left {
+        left: 10px;
+    }
+    .hero-arrow-right {
+        right: 10px;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-section {
+        padding: 50px 0;
+        min-height: 500px;
+    }
+    .hero-text h1 {
+        font-size: 2.2em;
+    }
+    .hero-images-slider {
+        height: 350px;
+    }
+    .hero-image-wrapper img {
+        max-width: 250px;
+    }
+    .hero-image-wrapper img:nth-child(2),
+    .hero-image-wrapper img:nth-child(3) {
+        display: none; /* Hide stacked phones on smaller screens for simplicity */
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-section {
+        padding: 40px 0;
+        min-height: 450px;
+    }
+    .hero-text h1 {
+        font-size: 1.8em;
+    }
+    .hero-text p {
+        font-size: 0.9em;
+    }
+    .hero-images-slider {
+        height: 300px;
+    }
+    .hero-image-wrapper img {
+        max-width: 200px;
+    }
+    .hero-btn {
+        padding: 10px 25px;
+        font-size: 1em;
+    }
+}
+  
+  .container {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+  }
+  
+  /* Header */
+  .header {
+    background: #ffffff; /* White background */
+    color: #333;          /* Dark text for contrast */
+    padding: 20px 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* Optional: subtle shadow */
+  }
+  
+
+  .header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  
+  .logo img {
+    height: 50px;
+    width: auto;
+    display: block;
+  }
+  
+  /* Base Nav */
+.nav {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .nav a {
+    color: #000;
+    text-decoration: none;
+    padding: 8px 12px;
+  }
+  
+  .quote-btn {
+    background: #ff6600;
+    color: #fff;
+    border-radius: 5px;
+  }
+  
+  /* Hamburger toggle hidden on desktop */
+  .menu-toggle {
+    display: none;
+    font-size: 28px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #000;
+  }
+  
+  /* Mobile Styles */
+  @media (max-width: 768px) {
+    .menu-toggle {
+      display: block;
+    }
+  
+    .nav {
+      display: none;
+      flex-direction: column;
+      width: 100%;
+      background: #fff;
+      padding: 10px 0;
+      margin-top: 10px;
+    }
+  
+    .nav.active {
+      display: flex;
+    }
+  
+    .nav a {
+      padding: 10px;
+      border-top: 1px solid #eee;
+    }
+  
+    .quote-btn {
+      margin-top: 10px;
+      text-align: center;
+    }
+  
+    .header .container {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+  
+  
+  /* Hero Section Background and Layout */
+.hero {
+    background: #f3f3f8;
+    padding: 80px 20px;
+    text-align: center;
+  }
+  
+  .stats-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 40px;
+  }
+  
+  .stat-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 140px;
+    color: #333;
+  }
+  
+  .stat-box img {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 15px;
+    filter: invert(32%) sepia(82%) saturate(1342%) hue-rotate(339deg) brightness(102%) contrast(97%);
+  }
+  
+  .stat-box strong {
+    font-size: 24px;
+    font-weight: bold;
+    color: #444;
+  }
+  
+  .stat-box span {
+    font-size: 20px;
+    color: #f04e30;
+    font-weight: bold;
+    margin-left: 2px;
+  }
+  
+  .stat-box p {
+    font-size: 14px;
+    margin-top: 8px;
+  }
+
+
+  .excellence {
+    padding: 80px 20px;
+    background: #fff;
+  }
+  
+  .excellence-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .excellence-text {
+    flex: 1 1 480px;
+  }
+  
+  .excellence-text h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+  }
+  
+  .excellence-text .highlight {
+    color: #ff4d00;
+    font-weight: bold;
+  }
+  
+  .excellence-text .bold {
+    font-weight: bold;
+    color: #000;
+  }
+  
+  .excellence-text p {
+    font-size: 16px;
+    margin-bottom: 20px;
+    color: #444;
+  }
+  
+  .tab-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 20px 0;
+    background: #f8f8f8;
+    border-radius: 40px;
+    padding: 10px 20px;
+  }
+  
+  .tab-buttons button {
+    background: transparent;
+    border: none;
+    font-weight: bold;
+    color: #333;
+    padding: 10px 15px;
+    border-radius: 40px;
+    cursor: pointer;
+  }
+  
+  .tab-buttons .active {
+    background: white;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+  }
+  
+  .btn-orange {
+    background: #ff4d00;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 25px;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 10px;
+  }
+  
+  .excellence-image {
+    position: relative;
+    flex: 1 1 400px;
+    text-align: center;
+  }
+  
+  .excellence-image img {
+    max-width: 100%;
+    border-radius: 10px;
+  }
+  
+  .play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    border: 2px solid #ff4d00;
+    color: #ff4d00;
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+    border-radius: 50%;
+    line-height: 56px;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .excellence-grid {
+      flex-direction: column;
+      text-align: center;
+    }
+  
+    .tab-buttons {
+      justify-content: center;
+    }
+  }
+
+  
+  
+  /* Services */
+  body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f7f7f7;
+    color: var(--primary-text-color);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.services-section {
+    padding: 80px 0;
+    text-align: center;
+}
+
+.section-title {
+    font-size: 2.5em;
+    color: var(--primary-text-color);
+    margin-bottom: 20px;
+    position: relative;
+    display: inline-block;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -10px;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background-color: var(--accent-color);
+    border-radius: 2px;
+}
+
+.section-title span {
+    color: var(--accent-color);
+}
+
+.section-description {
+    font-size: 1.1em;
+    color: var(--secondary-text-color);
+    max-width: 800px;
+    margin: 0 auto 60px auto;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.service-card {
+    background-color: var(--card-background);
+    padding: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 10px 30px var(--shadow-light);
+    text-align: left;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+}
+
+.service-icon {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #e8f0fe; /* Light background for the icon area */
+    border-radius: 10px;
+    /* You can add more specific shapes here if needed using pseudo-elements and clip-path */
+}
+
+.service-icon img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.service-card h3 {
+    font-size: 1.5em;
+    color: var(--primary-text-color);
+    margin-bottom: 15px;
+}
+
+.service-card p {
+    font-size: 0.95em;
+    color: var(--secondary-text-color);
+    margin-bottom: 25px;
+    flex-grow: 1;
+}
+
+.learn-more {
+    display: inline-block;
+    color: var(--primary-text-color);
+    text-decoration: none;
+    font-weight: 600;
+    position: relative;
+    padding-bottom: 5px;
+}
+
+.learn-more::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--primary-text-color);
+    transition: width 0.3s ease;
+}
+
+.learn-more:hover::after {
+    width: 100%;
+}
+
+.accessibility-icon {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    width: 50px;
+    height: 50px;
+    background-color: #6c5ce7; /* Example color, adjust as needed */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    z-index: 1000;
+}
+
+.accessibility-icon img {
+    width: 60%;
+    height: 60%;
+    filter: invert(100%); /* To make the icon white if it's dark */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .section-title {
+        font-size: 2em;
+    }
+
+    .section-description {
+        font-size: 1em;
+        margin-bottom: 40px;
+    }
+
+    .services-grid {
+        grid-template-columns: 1fr; /* Stack cards on smaller screens */
+    }
+
+    .service-card {
+        padding: 25px;
+    }
+}
+
+@media (max-width: 480px) {
+    .services-section {
+        padding: 50px 0;
+    }
+
+    .section-title {
+        font-size: 1.8em;
+    }
+}
+
+
+
+/* Client */
+/* ... (previous CSS rules) ... */
+
+.clients-section {
+    padding: 80px 0;
+    text-align: center;
+    background-color: #f7f7f7; /* Same as body background for consistency */
+}
+
+.clients-section .section-title {
+    margin-bottom: 20px;
+}
+
+.clients-section .section-title .highlight {
+    color: var(--accent-color); /* Uses the red accent color */
+    background-color: #fce8e8; /* Light background for the highlight */
+    padding: 2px 8px;
+    border-radius: 5px;
+}
+
+.client-description {
+    max-width: 700px;
+    margin: 0 auto 60px auto;
+    font-size: 1.1em;
+    color: var(--secondary-text-color);
+}
+
+.client-logos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Adjust minmax for logo size */
+    gap: 30px;
+    align-items: center; /* Vertically align logos in their grid cells */
+    justify-items: center; /* Horizontally align logos in their grid cells */
+}
+
+.client-logo-item {
+    padding: 15px;
+    background-color: #fff;
+    border-radius: var(--border-radius);
+    box-shadow: 0 5px 15px var(--shadow-light);
+    display: flex; /* Use flex to center image if it's smaller than the item */
+    align-items: center;
+    justify-content: center;
+    height: 100px; /* Fixed height for consistent card appearance */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.client-logo-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.client-logo-item img {
+    max-width: 100%;
+    max-height: 80px; /* Max height to control logo size within the item */
+    object-fit: contain; /* Ensures the image scales down without cropping */
+    filter: grayscale(100%); /* Make logos grayscale */
+    opacity: 0.7;
+    transition: filter 0.3s ease, opacity 0.3s ease;
+}
+
+.client-logo-item img:hover {
+    filter: grayscale(0%); /* Restore color on hover */
+    opacity: 1;
+}
+
+/* Responsive Adjustments for Clients Section */
+@media (max-width: 768px) {
+    .client-logos-grid {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    }
+    .client-logo-item {
+        height: 80px;
+    }
+    .client-logo-item img {
+        max-height: 60px;
+    }
+}
+
+@media (max-width: 480px) 
+
+
+/* project */
+.projects-section {
+    padding: 80px 0;
+    text-align: center;
+    background-color: #f7f7f7;
+}
+
+.projects-section .section-title {
+    margin-bottom: 50px; /* More space below title */
+}
+
+.projects-section .section-title .highlight {
+    color: var(--accent-color);
+    /* No background-color or padding for this highlight as per image */
+}
+
+.project-slider-wrapper {
+    position: relative;
+    overflow: hidden; /* Crucial for hiding parts of cards not in view */
+    margin-bottom: 40px;
+}
+
+.project-cards-container {
+    display: flex; /* Use flexbox to arrange cards horizontally */
+    gap: 30px; /* Space between project cards */
+    padding-bottom: 20px; /* Space for shadow if cards are tall */
+    /* Transition for smooth sliding (will be activated by JS) */
+    transition: transform 0.5s ease-in-out;
+    /* This will be managed by JavaScript for sliding */
+    transform: translateX(0);
+}
+
+.project-card {
+    flex: 0 0 32%; /* Approx. 3 cards per row with gap. Adjust as needed */
+    min-width: 300px; /* Minimum width for a card */
+    background-color: #fff;
+    border-radius: var(--border-radius);
+    box-shadow: 0 10px 30px var(--shadow-light);
+    text-align: left;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-decoration: none; /* Remove underline from link */
+    color: inherit; /* Inherit text color from parent */
+    display: flex;
+    flex-direction: column;
+}
+
+.project-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+}
+
+.project-card a {
+    text-decoration: none; /* Ensure no underline on the link */
+    color: inherit; /* Inherit color */
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* Make the link fill the card */
+}
+
+.project-image-wrapper {
+    width: 100%;
+    height: 250px; /* Fixed height for project images */
+    overflow: hidden; /* Hide overflowing parts of the image */
+    border-top-left-radius: var(--border-radius);
+    border-top-right-radius: var(--border-radius);
+    background-color: #f0f0f0; /* Placeholder background */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.project-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Cover the area, cropping if necessary */
+    display: block;
+}
+
+.project-details {
+    padding: 25px;
+    flex-grow: 1; /* Allows details section to take up remaining space */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.project-details h3 {
+    font-size: 1.4em;
+    color: var(--primary-text-color);
+    margin-bottom: 10px;
+}
+
+.project-details p {
+    font-size: 0.9em;
+    color: var(--secondary-text-color);
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.project-tag {
+    display: inline-block;
+    background-color: #e8f0fe; /* Light blue background as seen in image */
+    color: #5a7ee0; /* Blue text */
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.8em;
+    font-weight: 600;
+    margin-top: auto; /* Pushes the tag to the bottom */
+}
+
+/* Pagination Dots */
+.project-pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.dot {
+    height: 10px;
+    width: 10px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.dot.active {
+    background-color: var(--accent-color); /* Red for active dot */
+}
+
+/* "See All Projects" Button */
+.btn-primary {
+    display: inline-block;
+    background-color: var(--accent-color);
+    color: #fff;
+    padding: 12px 30px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    margin-top: 40px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+}
+
+.btn-primary:hover {
+    background-color: #e05e5e; /* Slightly darker red on hover */
+    transform: translateY(-2px);
+}
+
+/* Responsive Adjustments for Projects Section */
+@media (max-width: 1200px) {
+    .project-card {
+        flex: 0 0 48%; /* Show 2 cards per row on slightly smaller screens */
+    }
+}
+
+@media (max-width: 768px) {
+    .project-card {
+        flex: 0 0 90%; /* Show 1 card per row with some padding on mobile */
+        margin: 0 auto; /* Center the single card */
+    }
+
+    .project-cards-container {
+        /* This will be adjusted by JS for horizontal scrolling behavior */
+        overflow-x: auto; /* Enable horizontal scrolling if JS is not used */
+        scroll-snap-type: x mandatory; /* Optional: for smoother snapping if overflow-x is used */
+        -webkit-overflow-scrolling: touch; /* For smoother scrolling on iOS */
+        padding-left: 20px; /* Add some padding for the first card */
+        padding-right: 20px; /* Add some padding for the last card */
+        box-sizing: border-box; /* Include padding in width */
+    }
+
+    .project-card > a {
+        scroll-snap-align: center; /* Snap to center of card */
+    }
+}
+
+@media (max-width: 480px) {
+    .project-image-wrapper {
+        height: 200px;
+    }
+    .project-details h3 {
+        font-size: 1.2em;
+    }
+    .project-details p {
+        font-size: 0.85em;
+    }
+    .project-tag {
+        font-size: 0.75em;
+        padding: 4px 10px;
+    }
+    .btn-primary {
+        padding: 10px 25px;
+        font-size: 0.9em;
+    }
+}
+
+
+/* client test */
+.testimonials-section {
+    padding: 80px 0;
+    text-align: center;
+    background-color: #fff; /* White background for this section */
+}
+
+.testimonials-section .section-title {
+    margin-bottom: 50px;
+    font-size: 2.2em; /* Slightly smaller for this section */
+}
+
+.testimonials-section .section-title .highlight {
+    color: var(--accent-color);
+    background-color: #fce8e8;
+    padding: 2px 8px;
+    border-radius: 5px;
+}
+
+.testimonial-slider-wrapper {
+    position: relative;
+    max-width: 800px; /* Constrain width of slider */
+    margin: 0 auto 50px auto;
+    overflow: hidden; /* Hide extra testimonials */
+    padding: 0 40px; /* Space for arrows if positioned outside */
+    display: flex; /* To easily align arrow buttons */
+    align-items: center;
+    min-height: 350px; /* Ensure enough height even with short quotes */
+}
+
+.testimonial-cards-container {
+    display: flex;
+    flex-direction: column; /* Arrange cards vertically within container */
+    align-items: center; /* Center content horizontally */
+    width: 100%;
+    position: relative; /* For absolute positioning of cards if needed, or transform */
+    transition: transform 0.6s ease-in-out; /* For smooth vertical sliding */
+}
+
+.testimonial-card {
+    flex: 0 0 100%; /* Each card takes 100% height for vertical slide */
+    width: 100%; /* Ensure card takes full width of container */
+    padding: 30px;
+    box-sizing: border-box; /* Include padding in width/height calculation */
+    text-align: center;
+    display: none; /* Hide all by default, JS will show one */
+    opacity: 0;
+    transform: translateY(20px); /* Initial state for animation */
+    transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out;
+}
+
+.testimonial-card.active {
+    display: block; /* Show the active card */
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.client-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto 30px auto;
+    border: 3px solid var(--accent-color); /* Red border around avatar */
+    box-shadow: 0 0 0 5px rgba(255, 107, 107, 0.2); /* Light halo effect */
+}
+
+.client-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.testimonial-quote {
+    font-size: 1.3em;
+    color: var(--primary-text-color);
+    margin-bottom: 30px;
+    line-height: 1.6;
+    max-width: 600px; /* Constrain quote width */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.star-rating {
+    color: #ffc107; /* Gold color for stars */
+    margin-bottom: 15px;
+    font-size: 1.2em;
+}
+
+.star-rating .fas.fa-star {
+    margin: 0 2px;
+}
+
+.client-name {
+    font-size: 1.1em;
+    font-weight: 600;
+    color: var(--primary-text-color);
+    margin-bottom: 5px;
+    text-transform: uppercase;
+}
+
+.client-title {
+    font-size: 0.9em;
+    color: var(--secondary-text-color);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Testimonial Navigation Arrows */
+.testimonial-arrow {
+    background: none;
+    border: none;
+    font-size: 2.5em;
+    color: #ccc; /* Light grey by default */
+    cursor: pointer;
+    position: absolute;
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Adjust for button width */
+    z-index: 10;
+    transition: color 0.3s ease, transform 0.3s ease;
+    padding: 10px;
+    outline: none; /* Remove outline on focus */
+}
+
+.testimonial-arrow:hover {
+    color: var(--primary-text-color); /* Darker on hover */
+    transform: translateX(-50%) translateY(-2px); /* Slight lift */
+}
+
+.testimonial-arrow.prev-arrow {
+    top: 0; /* Position at the top */
+}
+
+.testimonial-arrow.next-arrow {
+    bottom: 0; /* Position at the bottom */
+}
+
+/* Responsive adjustments for Testimonials */
+@media (max-width: 768px) {
+    .testimonial-quote {
+        font-size: 1.1em;
+        margin-bottom: 20px;
+    }
+    .testimonial-slider-wrapper {
+        padding: 0; /* Remove horizontal padding on smaller screens */
+    }
+    .testimonial-arrow {
+        font-size: 2em;
+    }
+}
+
+@media (max-width: 480px) {
+    .testimonials-section .section-title {
+        font-size: 1.8em;
+    }
+    .client-avatar {
+        width: 80px;
+        height: 80px;
+        margin-bottom: 20px;
+    }
+    .testimonial-quote {
+        font-size: 1em;
+    }
+    .star-rating {
+        font-size: 1em;
+    }
+    .client-name {
+        font-size: 1em;
+    }
+    .client-title {
+        font-size: 0.8em;
+    }
+}
+
+
+/* call */
+.call-to-action-section {
+    position: relative; /* Needed for positioning the background pattern */
+    padding: 100px 0; /* Adjust padding as needed */
+    background-color: #dbe4f1; /* Light blue background color from image */
+    overflow: hidden; /* Ensure pattern stays within bounds */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 250px; /* Adjust as needed for desired height */
+}
+
+.call-to-action-section .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    z-index: 2; /* Ensure content is above the background pattern */
+    position: relative; /* For z-index to work */
+}
+
+.background-pattern {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1; /* Place behind content */
+    opacity: 0.2; /* Adjust opacity for subtle effect */
+    background-image: url('data:image/svg+xml,%3Csvg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath d="M0 0H4V4H0V0ZM6 0H10V4H6V0ZM12 0H16V4H12V0ZM0 6H4V10H0V6ZM6 6H10V10H6V6ZM12 6H16V10H12V6ZM0 12H4V16H0V12ZM6 12H10V16H6V12ZM12 12H16V16H12V16Z" fill="%23FFFFFF"%3E%3C/path%3E%3C/svg%3E'); /* A simple 0/1 pattern */
+    background-size: 16px 16px; /* Size of the pattern unit */
+    /* You can replace the base64 SVG with a proper image file if preferred,
+       e.g., background-image: url('images/binary-pattern.png'); */
+}
+
+.cta-title {
+    font-size: 2.5em;
+    color: #f76e5d; /* Orange color from the image */
+    margin-bottom: 40px;
+    font-weight: 700;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 20px; /* Space between buttons */
+    flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+    justify-content: center;
+}
+
+.cta-btn {
+    display: inline-block;
+    padding: 15px 35px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1em;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
+    white-space: nowrap; /* Prevent text from wrapping inside the button */
+}
+
+.primary-cta-btn {
+    background-color: #f76e5d; /* Orange background */
+    color: #fff;
+    border: 2px solid #f76e5d; /* Orange border */
+    box-shadow: 0 5px 15px rgba(247, 110, 93, 0.4); /* Soft shadow */
+}
+
+.primary-cta-btn:hover {
+    background-color: #e06051; /* Slightly darker orange on hover */
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(247, 110, 93, 0.5);
+}
+
+.secondary-cta-btn {
+    background-color: transparent; /* Transparent background */
+    color: var(--primary-text-color); /* Inherit main text color */
+    border: 2px solid #b7c0ce; /* Light grey border from image */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.secondary-cta-btn:hover {
+    background-color: #e6edf8; /* Light blue background on hover */
+    border-color: #9ab2d0; /* Darker border on hover */
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive Adjustments for Call to Action Section */
+@media (max-width: 768px) {
+    .call-to-action-section {
+        padding: 80px 20px;
+    }
+    .cta-title {
+        font-size: 2em;
+        margin-bottom: 30px;
+    }
+    .cta-buttons {
+        flex-direction: column; /* Stack buttons vertically */
+        gap: 15px;
+        width: 100%; /* Make buttons full width */
+    }
+    .cta-btn {
+        width: 80%; /* Make buttons narrower than full width for better appearance */
+        max-width: 300px; /* Max width for stacked buttons */
+        margin: 0 auto; /* Center buttons */
+        padding: 12px 25px;
+        font-size: 1em;
+    }
+}
+
+@media (max-width: 480px) {
+    .cta-title {
+        font-size: 1.6em;
+    }
+}
+    
+  /* Footer */
+  .footer {
+    background: #0a2e50;
+    color: white;
+    padding: 40px 20px 20px;
+  }
+  
+  .footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+  }
+  
+  .footer h3 {
+    margin-bottom: 15px;
+  }
+  
+  .footer p, .footer a {
+    color: #ccc;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  
+  .footer ul {
+    list-style: none;
+  }
+  
+  .footer ul li {
+    margin-bottom: 10px;
+  }
+  
+  .footer a:hover {
+    color: white;
+  }
+  
+  .copyright {
+    text-align: center;
+    padding-top: 20px;
+    font-size: 13px;
+    color: #bbb;
+  }
+  
